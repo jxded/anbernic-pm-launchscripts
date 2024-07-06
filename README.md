@@ -3,12 +3,13 @@ These scripts should replace the official portmaster scripts to make the ports r
 Credits to Portmaster team and @cbepx-me for the scripts. 
 
 
-you can grab the required files from http://portmaster.games . Please note that there are no copyrighted files being shared. 
+you can grab the required files from [Portmaster](http://portmaster.games/games.html) . Please note that there are no copyrighted files being shared, here or at PM. 
 
 # To use:
 
 1. Grab the files for your wished game from portmaster.games
-2. Move the files over to /PORTS/ file on your SDcard. 
+2. Move the files over to roms/PORTS/ folder on your SDcard. 
 3. Grab the required .sh file from here and replace the ones from portmaster.
+
 
 Feel free to pr and add other games. 
