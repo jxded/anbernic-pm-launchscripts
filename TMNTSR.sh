@@ -14,8 +14,7 @@ else
   controlfolder="/roms/ports/PortMaster"
 fi
 
-SHDIR="$(cd $(dirname "$0"); pwd)"
-
+SHDIR=$(dirname "$0")
 
 # We source the control.txt file contents here
 source $controlfolder/control.txt
@@ -86,7 +85,7 @@ export FNA_SDL2_FORCE_BASE_PATH=0
 
 if [[ ! -f "${gamedir}/gamedata/.astc_done" ]] || [[ ! -f "${gamedir}/gamedata/.patch_done" ]]; then
 	chmod +x ../repack.src ../utils/*
-	progressor \
+	../progressor \
 		--log "../repack.log" \
 		--font "../FiraCode-Regular.ttf" \
 		--title "First Time Setup" \
@@ -104,6 +103,15 @@ fi
 printf "\033c" > /dev/tty0
 echo "Loading... Please Wait." > /dev/tty0
 
-LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.2800.5 mono --ffast-math -O=all ../MMLoader.exe MONOMODDED_${gameassembly} |& tee ${gamedir}/log.txt
-#kill -9 $(pidof gptokeyb)
+DSIPLAY_ID="$(cat /sys/class/power_supply/axp2202-battery/display_id)"
+if [[ $DSIPLAY_ID == "1" ]]; then
+  LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.2800.5 AUDIODEV=hw:2,0  mono --ffast-math -O=all ../MMLoader.exe MONOMODDED_${gameassembly} |& tee ${gamedir}/log.txt
+else
+  LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.2800.5 mono --ffast-math -O=all ../MMLoader.exe MONOMODDED_${gameassembly} |& tee ${gamedir}/log.txt
+fi
+
+kill -9 $(pidof gptokeyb)
 umount "$monodir"
+
+# Disable console
+printf "\033c" >> /dev/tty1
