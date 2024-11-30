@@ -11,5 +11,9 @@ you can grab the required files from [Portmaster](http://portmaster.games/games.
 2. Move the files over to roms/PORTS/ folder on your SDcard. 
 3. Grab the required .sh file from here and replace the ones from portmaster.
 
+# How to do it manually for most games:
+1. Remove or comment(#) line with "GAMEDIR="$PORTDIR/GameName""
+2. Add new line "SHDIR=$(dirname "$0")" and next line "GAMEDIR="$SHDIR/GameName"
+3. Change "GameName" for real folder with game.
 
 Feel free to pr and add other games. 
